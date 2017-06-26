@@ -1,0 +1,8 @@
+#! /bin/bash
+
+# stop on any error
+set -euo pipefail
+
+# run
+cli_folder="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+${cli_folder}/../containers/googleclis/googleclis.sh kubectl ${@:1}

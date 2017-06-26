@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# stop on any error
+set -euo pipefail
+
+# directories
+root_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../.."
+kubectl="${root_directory}/clis/kubectl"
+
+# create
+# == namespace
+${kubectl} apply -f //root_directory/environments/xavier/data/namespace.yml
+
+# == services
+${kubectl} apply -f //root_directory/environments/xavier/data/mongo-service.yml
+${kubectl} apply -f //root_directory/environments/xavier/data/nginx-service.yml
+
+# == storages
+${kubectl} apply -f //root_directory/environments/xavier/data/mongo-storage.yml
+
+# == sets
+${kubectl} apply -f //root_directory/environments/xavier/data/mongo-statefulset.yml
+${kubectl} apply -f //root_directory/environments/xavier/data/nginx-replicationset.yml

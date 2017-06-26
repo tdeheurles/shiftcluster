@@ -1,0 +1,33 @@
+#!/bin/bash
+
+root_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../.."
+kubectl="${root_directory}/clis/kubectl"
+
+# stop on any error
+set -euo pipefail
+
+# configuration
+namespace="demoxavier"
+
+# create storage
+echo " "
+
+echo "SERVICES"
+${kubectl} get service --namespace ${namespace}
+echo " "
+
+echo "STATEFULSET"
+${kubectl} get statefulset --namespace ${namespace}
+echo " "
+
+echo "REPLICATIONSET"
+${kubectl} get rc --namespace ${namespace}
+echo " "
+
+echo "STORAGES"
+${kubectl} get storageclasses
+echo " "
+
+echo "NODES"
+${kubectl} get node
+echo " "

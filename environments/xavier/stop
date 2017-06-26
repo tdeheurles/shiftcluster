@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# stop on any error
+set -euo pipefail
+
+# directories
+root_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../.."
+kubectl="${root_directory}/clis/kubectl"
+
+# create storage
+${kubectl} delete -f //root_directory/environments/xavier/data/namespace.yml
+${kubectl} delete -f //root_directory/environments/xavier/data/mongo-storage.yml

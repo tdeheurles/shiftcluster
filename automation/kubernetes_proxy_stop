@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# stop on any error
+set -euo pipefail
+
+# create cluster
+root_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+${root_directory}/automation/container_daemon_stop kubernetes_proxy

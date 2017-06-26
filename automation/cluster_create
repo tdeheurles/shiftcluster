@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# stop on any error
+set -euo pipefail
+
+# load configuration
+root_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+. ${root_directory}/configurations/gke.sh
+
+# prompt
+echo -e "\e[92mYou are going to create a cluster with these elements:\e[39m"
+echo "  - cluster name:    ${gke_cluster_name}"
+echo "  - machine type:    ${gke_machine_types}"
+echo "  - number of nodes: ${gke_num_nodes}"
+echo " "
+echo "Do you want to proceed [y/n]:"
+read answer
+if [[ "${answer}" != "y" ]]
+then
+    echo -e "\nexiting, you can open ${root_directory}/configurations/gke.sh to change these parameters"
+    exit 1
+fi
+
+# create cluster
+${root_directory}/clis/gcloud container clusters create ${gke_cluster_name} \
+    --machine-type ${gke_machine_types} \
+    --num-nodes ${gke_num_nodes}
+
+${root_directory}/automation/get_cluster_credentials

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# stop on any error
+set -euo pipefail
+
+# load configuration
+root_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+. ${root_directory}/configurations/google.sh
+
+# authenticate
+${root_directory}/clis/gcloud auth login
+
+# set project
+${root_directory}/clis/gcloud config set project ${google_project}
+
+# set project
+${root_directory}/clis/gcloud config set compute/zone ${google_zone}
